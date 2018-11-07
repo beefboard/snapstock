@@ -4,12 +4,14 @@ import { promisify } from 'util';
 import mockFs from 'mock-fs';
 import * as store from './store';
 
+console.log();
 const statAsync = promisify(fs.stat);
 const readFileAsync = promisify(fs.readFile);
 describe('store', () => {
   afterEach(() => {
     mockFs.restore();
   });
+
   describe('save', () => {
     it('should move given images to store', async () => {
       const imagePaths = {
@@ -94,11 +96,11 @@ describe('store', () => {
       expect(data.toString()).toBe('data2');
     });
 
-    it('should thrown an error if directory cannot be created or wiped', async () => {
+    it('should throw an error if directory cannot be created or wiped', async () => {
       const postId = 'jshfias';
       mockFs({
         [store.STORAGE_DIR]: mockFs.directory({
-          mode: 0o0000,
+          mode: 0o6100,
           items: {
             [postId]: {
               'test.png': 'image-content',
@@ -159,7 +161,7 @@ describe('store', () => {
       // make an unaccessable directory
       mockFs({
         [store.STORAGE_DIR]: mockFs.directory({
-          mode: 0o0000,
+          mode: 0o6000,
           items: {
             [postId]: {
               [`${imageId}.png`]: 'image-content',
@@ -205,11 +207,11 @@ describe('store', () => {
       expect(images).toEqual([]);
     });
 
-    it('should thrown an error if the directory cannot be read', async () => {
+    it('should throw an error if the directory cannot be read', async () => {
       const postId = 'fdsfds';
       mockFs({
         [store.STORAGE_DIR]: mockFs.directory({
-          mode: 0o0000,
+          mode: 0o6000,
           items: {
             [postId]: {
               'sadfsa.png': 'image-content',

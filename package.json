@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Image storage api for beefboard",
   "main": "src/server.ts",
+  "engines": {
+    "node": ">=8, <=10"
+  },
   "scripts": {
     "test": "jest",
     "start": "ts-node -T src/server.ts",
