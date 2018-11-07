@@ -4,9 +4,9 @@ import { promisify } from 'util';
 import mockFs from 'mock-fs';
 import * as store from './store';
 
-console.log();
 const statAsync = promisify(fs.stat);
 const readFileAsync = promisify(fs.readFile);
+
 describe('store', () => {
   afterEach(() => {
     mockFs.restore();

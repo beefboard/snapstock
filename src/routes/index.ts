@@ -11,4 +11,8 @@ router.get('/', (_, res) => {
 
 router.use('/v1', v1);
 
+router.use((req, res) => {
+  res.status(404).send({ error: 'Not found' });
+});
+
 export default router;

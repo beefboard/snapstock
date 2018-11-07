@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import images from './images';
+import store from './store';
 
 const router = Router();
 
 router.get('/', (_, res) => {
   res.send({
-    images: '/images'
+    store: '/store'
   });
 });
 
-router.use('/images', images);
+router.use('/store', store);
 
 export default router;
