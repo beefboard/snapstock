@@ -8,7 +8,7 @@ const mkdirAsync = promisify(fs.mkdir);
 const readdirAsync = promisify(fs.readdir);
 const unlinkAsync = promisify(fs.unlink);
 
-export const STORAGE_DIR = process.env.POSTS_STORAGE || path.join(__dirname, '/../../storage');
+export const STORAGE_DIR = process.env.STORAGE_DIR || path.join(__dirname, '/../../storage');
 
 function extractId(imageFileName: string) {
   const extension = path.extname(imageFileName);
