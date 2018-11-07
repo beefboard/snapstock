@@ -14,7 +14,7 @@ module.exports = {
     "json",
     "node"
   ],
-  "setupFiles":  ["./jest.setup.js"],
+  "setupTestFrameworkScriptFile":  "./jest.setup.js",
   "verbose": true,
   "collectCoverage": true,
   "coverageThreshold": {
