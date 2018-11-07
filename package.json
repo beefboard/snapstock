@@ -1,13 +1,17 @@
 {
   "name": "snapstock",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Image storage api for beefboard",
+  "main": "src/server.ts",
   "scripts": {
-    "test": "jest --coverage --verbose"
+    "test": "jest --coverage --verbose",
+    "start": "ts-node -T src/server.ts",
+    "build": "tsc --sourceMap true",
+    "lint": "tslint --project .",
+    "watch": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node src/server.ts'"
   },
   "keywords": [],
-  "author": "",
+  "author": "freshollie",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.16.0",
@@ -28,7 +32,8 @@
   },
   "dependencies": {
     "express": "^4.16.4",
-    "multer": "^1.4.1"
+    "multer": "^1.4.1",
+    "source-map-support": "^0.5.9"
   },
   "husky": {
     "hooks": {
