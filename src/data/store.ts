@@ -47,17 +47,16 @@ export async function save(postId: string, imagePaths: string[]) {
 
 export async function retrievePath(postId: string, imageId: string) {
   const postFolder = path.join(STORAGE_DIR, postId);
+  let images;
   try {
-    const images = await readdirAsync(postFolder);
+    images = await readdirAsync(postFolder);
+  } catch (_) {
+    return null;
+  }
 
-    for (const image of images) {
-      if (extractId(image) === imageId) {
-        return path.join(postFolder, image);
-      }
-    }
-  } catch (e) {
-    if (e.code !== 'ENOENT') {
-      throw e;
+  for (const image of images) {
+    if (extractId(image) === imageId) {
+      return path.join(postFolder, image);
     }
   }
 
@@ -75,9 +74,6 @@ export async function listImages(postId: string) {
 
     return imageIds;
   } catch (e) {
-    if (e.code !== 'ENOENT') {
-      throw e;
-    }
     return [];
   }
 }

@@ -98,16 +98,7 @@ describe('store', () => {
 
     it('should throw an error if directory cannot be created or wiped', async () => {
       const postId = 'jshfias';
-      mockFs({
-        [store.STORAGE_DIR]: mockFs.directory({
-          mode: 0o6100,
-          items: {
-            [postId]: {
-              'test.png': 'image-content',
-            }
-          }
-        })
-      });
+      mockFs();
 
       let thrown = null;
       try {
@@ -153,32 +144,6 @@ describe('store', () => {
       const foundPath = await store.retrievePath(postId, imageId);
       expect(foundPath).toBe(null);
     });
-
-    it('should throw an error if the directory cannot be read', async () => {
-      const postId = 'sdkfsdf';
-      const imageId = '2';
-
-      // make an unaccessable directory
-      mockFs({
-        [store.STORAGE_DIR]: mockFs.directory({
-          mode: 0o6000,
-          items: {
-            [postId]: {
-              [`${imageId}.png`]: 'image-content',
-            }
-          }
-        })
-      });
-
-      let thrown = null;
-
-      try {
-        await store.retrievePath(postId, imageId);
-      } catch (e) {
-        thrown = e;
-      }
-      expect(thrown).not.toBe(null);
-    });
   });
 
   describe('listImages', async () => {
@@ -205,29 +170,6 @@ describe('store', () => {
 
       const images = await store.listImages(postId);
       expect(images).toEqual([]);
-    });
-
-    it('should throw an error if the directory cannot be read', async () => {
-      const postId = 'fdsfds';
-      mockFs({
-        [store.STORAGE_DIR]: mockFs.directory({
-          mode: 0o6000,
-          items: {
-            [postId]: {
-              'sadfsa.png': 'image-content',
-            }
-          }
-        })
-      });
-
-      let thrown = null;
-
-      try {
-        await store.listImages(postId);
-      } catch (e) {
-        thrown = e;
-      }
-      expect(thrown).not.toBe(null);
     });
   });
 });
