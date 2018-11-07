@@ -4,7 +4,7 @@
   "description": "Image storage api for beefboard",
   "main": "src/server.ts",
   "scripts": {
-    "test": "jest --coverage --verbose",
+    "test": "jest",
     "start": "ts-node -T src/server.ts",
     "build": "tsc --sourceMap true",
     "lint": "tslint --project .",
