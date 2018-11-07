@@ -1,5 +1,5 @@
 # Build the typescript
-FROM node:10 as build
+FROM node:8 as build
 WORKDIR /build
 
 COPY package.json package-lock.json ./
@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build
 
 # Copy build into production environemnt
-FROM node:10
+FROM node:8
 WORKDIR /snapstock
 
 ENV NODE_ENV=production
