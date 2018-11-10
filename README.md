@@ -1,17 +1,17 @@
 # Snapstock
 
-Beefboard image storage api
+Beefboard's image storage api
 
 ## Development
-
-### Dependencies
-Development of snapstock is to be completed in typescript. The project
-required `node 8.x.x`, Node 10 will not pass tests.
-
-`npm install` to install dependencies
+Development of snapstock is done in typescript. The project
+requires `node 8.x.x`, Node 10 will not pass tests.
 
 It is recommeded to install `nvm` on your system, so that this project
 will automattically use the node version required
+
+### Dependencies
+
+`npm install` to install dependencies
 
 ### Linting
 
