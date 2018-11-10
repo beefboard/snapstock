@@ -4,7 +4,7 @@
   "description": "Image storage api for beefboard",
   "main": "src/server.ts",
   "engines": {
-    "node": ">=8, <=10"
+    "node": "^8"
   },
   "scripts": {
     "test": "jest",
