@@ -1,9 +1,10 @@
 import { Router, Response } from 'express';
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
 import * as store from '../../data/store';
 import mimeTypes from 'mime-types';
+
+const autoReap = require('multer-autoreap');
 
 export const TMP_IMAGE_STORE =
   process.env.IMAGE_STORE ||
@@ -54,28 +55,30 @@ router.get('/:postId', async (req, res) => {
 });
 
 router.put('/:postId', (req, res) => {
-  upload(req, res, async (err) => {
-    if (err) {
-      return handleError(err, res);
-    }
+  upload(req, res, (err) => {
+    autoReap(req, res, async () => {
+      if (err) {
+        return handleError(err, res);
+      }
 
-    const postId = req.params.postId;
-    const imageFiles = req.files;
+      const postId = req.params.postId;
+      const imageFiles = req.files;
 
-    if (!imageFiles) {
-      return res.status(422).send({ error: 'Images must be attached' });
-    }
+      if (!imageFiles) {
+        return res.status(422).send({ error: 'Images must be attached' });
+      }
 
-    const filePaths = [];
-    for (const file of imageFiles as any[]) {
-      filePaths.push(file.path);
-    }
-    try {
-      await store.save(postId, filePaths);
-      res.send({ success: true });
-    } catch (e) {
-      handleError(e, res);
-    }
+      const filePaths = [];
+      for (const file of imageFiles as any[]) {
+        filePaths.push(file.path);
+      }
+      try {
+        await store.save(postId, filePaths);
+        res.send({ success: true });
+      } catch (e) {
+        handleError(e, res);
+      }
+    });
   });
 });
 

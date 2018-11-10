@@ -1,7 +1,11 @@
 import supertest from 'supertest';
 import app from '../../app';
 import mockFs from 'mock-fs';
+import fs from 'fs';
+import { promisify } from 'util';
 import { TMP_IMAGE_STORE } from './store';
+
+const readdirAsync = promisify(fs.readdir);
 
 jest.mock('../../data/store');
 const store = require('../../data/store');
@@ -198,6 +202,25 @@ describe('/v1/store', () => {
         .attach('images', '/test2.png');
 
       expect(response.status).toBe(500);
+    });
+
+    it('should remove uploaded file cache on error', async () => {
+      store.save.mockImplementation(async () => {
+        throw new Error('failure');
+      });
+
+      const postId = 'sdfkjsdhf';
+      mockFs({
+        '/test.png': 'content',
+        '/test2.png': 'content2',
+        [TMP_IMAGE_STORE]: {}
+      });
+
+      await supertest(app).put(`/v1/store/${postId}`)
+        .attach('images', '/test.png')
+        .attach('images', '/test2.png');
+
+      expect(await readdirAsync(TMP_IMAGE_STORE)).toHaveLength(0);
     });
   });
 
