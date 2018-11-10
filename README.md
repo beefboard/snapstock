@@ -10,6 +10,9 @@ required `node 8.x.x`, Node 10 will not pass tests.
 
 `npm install` to install dependencies
 
+It is recommeded to install `nvm` on your system, so that this project
+will automattically use the node version required
+
 ### Linting
 
 Airbnb tslinting style is applied to snapstock, and is enforced via
