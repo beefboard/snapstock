@@ -13,34 +13,7 @@ describe('store', () => {
   });
 
   describe('save', () => {
-    it('should move given images to store', async () => {
-      const imagePaths = {
-        'test.png': 'test',
-        'test1.png': 'test2',
-        'test2.png': 'test3',
-        'test3.png': 'test4',
-      };
-
-      const postId = 'jshfias';
-
-      const mockFsConfig = Object.assign(imagePaths, { [store.STORAGE_DIR]: {} });
-      mockFs(mockFsConfig);
-
-      await store.save(postId, Object.keys(imagePaths));
-
-      for (const imagePath in imagePaths) {
-        let thrown = null;
-        try {
-          await statAsync(imagePath);
-        } catch (e) {
-          thrown = e;
-        }
-
-        expect(thrown).not.toBe(null);
-      }
-    });
-
-    it('should create a folder of the given post id', async () => {
+    it('should create a folder for the given post id', async () => {
       const imagePaths = {
         'test.png': 'test'
       } as any;
@@ -55,7 +28,7 @@ describe('store', () => {
       expect(await statAsync(path.join(store.STORAGE_DIR, postId))).toBeTruthy();
     });
 
-    it('should save image names as their index numbers under their post folder', async () => {
+    it('should copy the image names to their index numbers under their post folder', async () => {
       const imagePaths = {
         'test.png': 'test',
         'test1.png': 'test2',
