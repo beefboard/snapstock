@@ -11,13 +11,13 @@ export const TMP_IMAGE_STORE =
     path.join(__dirname, '../../../tmpStorage');
 
 const upload = multer({
-  fileFilter: (req, file, cb) => {
+  fileFilter: (_, file, cb) => {
     const extension = mimeTypes.extension(file.mimetype);
     cb(null, extension !== false);
   },
   storage: multer.diskStorage({
     destination: TMP_IMAGE_STORE,
-    filename: function (req, file, cb) {
+    filename: function (_, file, cb) {
       const name = (Math.random()).toString(36).substring(7);
       const extension = mimeTypes.extension(file.mimetype);
       cb(null, `${name}-${Date.now()}.${extension}`);
