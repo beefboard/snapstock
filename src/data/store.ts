@@ -2,7 +2,6 @@ import fs from 'fs';
 import { promisify } from 'util';
 import path from 'path';
 
-const mvAsync = promisify(fs.rename);
 const copyAsync = promisify(fs.copyFile);
 const mkdirAsync = promisify(fs.mkdir);
 const readdirAsync = promisify(fs.readdir);
@@ -38,7 +37,7 @@ export async function save(postId: string, imagePaths: string[]) {
   }
   for (const imagePath of imagePaths) {
     const extension = path.extname(imagePath);
-    tasks.push(mvAsync(imagePath, path.join(STORAGE_DIR, postId, `${i}${extension}`)));
+    tasks.push(copyAsync(imagePath, path.join(STORAGE_DIR, postId, `${i}${extension}`)));
     i += 1;
   }
 

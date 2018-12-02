@@ -4,7 +4,7 @@
   "description": "Image storage api for beefboard",
   "main": "src/server.ts",
   "engines": {
-    "node": ">=8, <=10"
+    "node": "^8"
   },
   "scripts": {
     "test": "jest",
@@ -39,6 +39,7 @@
     "express": "^4.16.4",
     "mime-types": "^2.1.21",
     "multer": "^1.4.1",
+    "multer-autoreap": "^1.0.3",
     "source-map-support": "^0.5.9"
   },
   "husky": {
